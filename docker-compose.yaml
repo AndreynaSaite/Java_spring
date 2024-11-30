@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:15
+    restart: "always"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: hackaton
+  hakaton:
+    image: hakaton:latest
+    build: .
+    restart: always
+    ports:
+      - "8090:8090"
+    depends_on:
+      - postgres
+
+
+volumes:
+  postgres_data:
